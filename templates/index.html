@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-3">Notices</h1>
+{% if notices %}
+  <div class="list-group">
+    {% for notice in notices %}
+      <a href="{{ url_for('view_notice', notice_id=notice.id) }}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ notice.title }}</h5>
+          <small>{{ notice.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+        <p class="mb-1 text-truncate">{{ notice.content }}</p>
+        <small class="text-muted">By {{ notice.author }}</small>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No notices yet. {% if session.get('admin') %}Create one <a href="{{ url_for('create') }}">here</a>.{% endif %}</p>
+{% endif %}
+{% endblock %}
