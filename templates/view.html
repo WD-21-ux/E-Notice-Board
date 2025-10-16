@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<article>
+  <h2>{{ notice.title }}</h2>
+  <p class="text-muted">By {{ notice.author }} • {{ notice.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+  <div class="mb-4">{{ notice.content|nl2br }}</div>
+
+  {% if session.get('admin') %}
+    <a class="btn btn-primary" href="{{ url_for('edit', notice_id=notice.id) }}">Edit</a>
+    <form class="d-inline" action="{{ url_for('delete', notice_id=notice.id) }}" method="post" onsubmit="return confirm('Delete this notice?');">
+      <button class="btn btn-danger">Delete</button>
+    </form>
+  {% endif %}
+  <a class="btn btn-secondary" href="{{ url_for('index') }}">Back</a>
+</article>
+{% endblock %}
