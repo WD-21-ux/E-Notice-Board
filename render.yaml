@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: e-notice-board
-    env: python
-    buildCommand: ""
-    startCommand: gunicorn app:app
